@@ -38,7 +38,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: 
       name: ${{ inputs.environment }}
-      url: ${{ inputs.rsconnect-account-name }}.shinyapps.io/${{ inputs.rsconnect-app-name }}
+      url: https://${{ inputs.rsconnect-account-name }}.shinyapps.io/${{ inputs.rsconnect-app-name }}
     env:
       SHINY_ACC_NAME: ${{ inputs.rsconnect-account-name }}
       SHINY_APP_NAME: ${{ inputs.rsconnect-app-name }}
