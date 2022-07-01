@@ -32,6 +32,10 @@ on:
         description: 'Whether or not this git package needs to be installed for the shiny app to work'
         type: boolean
         default: false
+      renvironment-contents:
+        description: 'The contents of a .Renvironment file to be stored in the root directory of the shiny app'
+        type: string
+        required: false
     secrets:
       rsconnect-account-token:
         description: 'The token for publishing to ShinyApps.io'
@@ -58,6 +62,13 @@ jobs:
         with:
           repository: '${{ inputs.repository }}'
           ref: '${{ inputs.ref }}'
+      - name: Setup .Renvironment
+        if: inputs.renvironment-contents
+        run: |
+          cat <<EOF > .Renviron
+          ${{ inputs.renvironment-contents }}
+          EOF
+        shell: bash
       - uses: r-lib/actions/setup-r@v2
       - uses: r-lib/actions/setup-pandoc@v2
       - uses: r-lib/actions/setup-r-dependencies@v2
